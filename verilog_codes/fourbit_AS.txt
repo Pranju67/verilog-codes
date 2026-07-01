@@ -1,0 +1,130 @@
+```
+# four bit adder/subtractor
+`timescale 1ns / 1ps
+
+module fourbit_AS(
+    output [3:0] S,
+    output Cout,
+    input M,
+    input Cin,
+    input [3:0] A,
+    input [3:0] B
+);
+
+wire [3:0] g;
+wire [3:0] p;
+wire [3:0] q;
+wire [3:0] r;
+
+wire cout;
+wire t;
+wire Q;
+
+// XOR B with M
+assign p[0] = B[0] ^ M;
+assign p[1] = B[1] ^ M;
+assign p[2] = B[2] ^ M;
+assign p[3] = B[3] ^ M;
+
+// g = 0000
+assign g = 4'b0000;
+
+// Complement of carry
+assign t = ~cout;
+
+// Generate correction bit
+assign Q = t & M;
+
+// XOR q with Q
+assign r[0] = q[0] ^ Q;
+assign r[1] = q[1] ^ Q;
+assign r[2] = q[2] ^ Q;
+assign r[3] = q[3] ^ Q;
+
+// First RCA
+RCA_4bit M1(
+    .S(q),
+    .cout(cout),
+    .A(A),
+    .B(p),
+    .cin(M)
+);
+
+// Second RCA
+RCA_4bit M2(
+    .S(S),
+    .cout(Cout),
+    .A(r),
+    .B(g),
+    .cin(Q)
+);
+
+endmodule
+
+
+//====================================================
+// 4-bit Ripple Carry Adder
+//====================================================
+
+module RCA_4bit(
+    output [3:0] S,
+    output cout,
+    input [3:0] A,
+    input [3:0] B,
+    input cin
+);
+
+wire c1, c2, c3;
+
+FA X0(
+    .sum(S[0]),
+    .cout(c1),
+    .a(A[0]),
+    .b(B[0]),
+    .cin(cin)
+);
+
+FA X1(
+    .sum(S[1]),
+    .cout(c2),
+    .a(A[1]),
+    .b(B[1]),
+    .cin(c1)
+);
+
+FA X2(
+    .sum(S[2]),
+    .cout(c3),
+    .a(A[2]),
+    .b(B[2]),
+    .cin(c2)
+);
+
+FA X3(
+    .sum(S[3]),
+    .cout(cout),
+    .a(A[3]),
+    .b(B[3]),
+    .cin(c3)
+);
+
+endmodule
+
+
+//====================================================
+// Full Adder
+//====================================================
+
+module FA(
+    output sum,
+    output cout,
+    input a,
+    input b,
+    input cin
+);
+
+assign sum  = a ^ b ^ cin;
+assign cout = (a & b) | (a & cin) | (b & cin);
+
+endmodule
+```
