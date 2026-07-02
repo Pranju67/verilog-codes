@@ -1,0 +1,50 @@
+```
+module four_one_mux(
+    input  [3:0] I,
+    input  [1:0] S,
+    output Y
+);
+
+wire W1;
+wire W2;
+wire [1:0] W;
+
+two_one_mux M1(
+    .S(S[0]),
+    .I(I[1:0]),
+    .Y(W1)
+);
+
+two_one_mux M2(
+    .S(S[0]),
+    .I(I[3:2]),
+    .Y(W2)
+);
+
+assign W = {W2, W1};
+
+two_one_mux M3(
+    .S(S[1]),
+    .I(W),
+    .Y(Y)
+);
+
+endmodule
+
+module two_one_mux(
+    input S,
+    input [1:0] I,
+    output Y
+);
+
+wire W1;
+wire W2;
+wire W3;
+
+assign W1 = ~S;
+assign W2 = W1 & I[0];
+assign W3 = S & I[1];
+assign Y  = W2 | W3;
+
+endmodule
+```

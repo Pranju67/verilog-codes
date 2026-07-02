@@ -1,0 +1,18 @@
+```
+module two_one_mux(
+    input S,
+    input [1:0] I,
+    output Y
+);
+
+wire W1;
+wire W2;
+wire W3;
+
+assign W1 = ~S;
+assign W2 = W1 & I[0];
+assign W3 = S & I[1];
+assign Y  = W2 | W3;
+
+endmodule
+```
