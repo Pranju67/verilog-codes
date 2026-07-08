@@ -1,0 +1,28 @@
+```
+# f(A,B,C) = AB + BC + AC
+module Boolean_func(
+   input A,B,C,
+   output out 
+    );
+    wire W1,W2,W3,W4,W5,W6;
+    supply0 gnd;
+    supply1 vdd;
+    pmos (W6,vdd,A);
+    pmos (W6,vdd,B);
+    pmos (W5,W6,B);
+    pmos (W5,W6,C);
+    pmos (W1,W5,C);
+    pmos (W1,W5,A);
+    nmos (W1,W2,A);
+    nmos (W2,gnd,B);
+    nmos (W1,W3,B);
+    nmos (W3,gnd,C);
+    nmos (W1,W4,C);
+    nmos (W4,gnd,A);
+    
+    pmos (out,vdd,W1);
+    nmos (out,gnd,W1);
+    
+endmodule
+
+```

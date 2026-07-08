@@ -1,0 +1,53 @@
+```
+
+module D_latch(
+    input D,
+    input en,
+    output Q,
+    output Qb
+);
+
+wire D_bar;
+wire Sb;
+wire Rb;
+
+assign D_bar = ~D;
+
+nand_G G1(
+    .A(D),
+    .B(en),
+    .Y(Sb)
+);
+
+nand_G G2(
+    .A(D_bar),
+    .B(en),
+    .Y(Rb)
+);
+
+nand_G G3(
+    .A(Sb),
+    .B(Qb),
+    .Y(Q)
+);
+
+nand_G G4(
+    .A(Rb),
+    .B(Q),
+    .Y(Qb)
+);
+
+endmodule
+
+
+module nand_G(
+    input A,
+    input B,
+    output Y
+);
+
+assign Y = ~(A & B);
+
+endmodule
+
+```

@@ -1,0 +1,49 @@
+```
+
+module SR_FF(
+    input S,
+    input R,
+    input clk,
+    output Q,
+    output Qb
+);
+
+wire W1, W2;
+
+nand_G G1(
+    .a(S),
+    .b(clk),
+    .Y(W1)
+);
+
+nand_G G2(
+    .a(R),
+    .b(clk),
+    .Y(W2)
+);
+
+nand_G G3(
+    .a(W1),
+    .b(Qb),
+    .Y(Q)
+);
+
+nand_G G4(
+    .a(W2),
+    .b(Q),
+    .Y(Qb)
+);
+
+endmodule
+
+
+module nand_G(
+    input a,
+    input b,
+    output Y
+);
+
+assign Y = ~(a & b);
+
+endmodule
+```

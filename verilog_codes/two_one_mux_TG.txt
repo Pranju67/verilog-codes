@@ -1,0 +1,20 @@
+```
+module two_one_mux_TG(
+    input S,
+    input [1:0] I,
+    output Y
+);
+
+wire Sb;
+
+assign Sb = ~S;
+
+// TG1 is ON when S = 0
+cmos TG1(Y, I[0], Sb, S);
+
+// TG2 is ON when S = 1
+cmos TG2(Y, I[1], S, Sb);
+
+endmodule
+
+```

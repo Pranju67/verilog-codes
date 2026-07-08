@@ -1,0 +1,14 @@
+```
+module CMOS_TWO_NOR(
+   input in_A,in_B,
+   output out
+    );
+    wire w;
+    supply0 gnd;
+    supply1 vdd;
+    pmos (w,vdd,in_A);
+    pmos (out,w,in_B);
+    nmos (out,gnd,in_A);
+    nmos (out,gnd,in_B);
+endmodule
+```

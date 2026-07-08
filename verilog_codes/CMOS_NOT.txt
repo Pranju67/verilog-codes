@@ -1,0 +1,15 @@
+```
+module CMOS_NOT(
+    input in,
+    output out
+);
+
+supply1 vdd;
+supply0 gnd;
+
+pmos P1(out, vdd, in);
+nmos N1(out, gnd, in);
+
+endmodule
+
+```

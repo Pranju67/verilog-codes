@@ -1,0 +1,15 @@
+```
+module CMOS_TWO_NANDS(
+    input in_A, in_B,
+    output out
+    );
+    wire w;
+    supply0 gnd;
+    supply1 vdd;
+    pmos P1(out,vdd,in_A);
+    pmos p2(out,vdd,in_B);
+    nmos N1(w,out,in_A);
+    nmos N2(w,gnd,in_B);
+endmodule
+
+```

@@ -1,0 +1,9 @@
+```
+module concete_half_adder(
+    input x,y,
+    output S,C
+    );
+    assign {C,S} = x + y;
+endmodule
+
+```

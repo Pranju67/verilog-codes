@@ -1,0 +1,37 @@
+```
+module CLA_AADER_DFLOW(
+    input [3:0] a,b,
+    input C0,
+    output C4,
+    output [3:0]S
+    );
+//    wire P,G;
+    wire [3:0]P,G;
+    wire [4:0]C;
+    assign C[0] = C0;
+    assign P[0] = (a[0]^b[0]),
+           P[1] = (a[1]^b[1]),
+           P[2] = (a[2]^b[2]),
+           P[3] = (a[3]^b[3]);
+    
+    assign G[0] = (a[0] & b[0]),
+           G[1] = (a[1] & b[1]),
+           G[2] = (a[2] & b[2]),
+           G[3] = (a[3] & b[3]);
+    
+    assign C[1] = (G[0]|P[0] & C[0]),
+           C[2] = (G[1]|P[1] & C[1]),
+           C[3] = (G[2]|P[2] & C[2]),
+           C[4] = (G[3]|P[3] & C[3]);
+        
+    assign S[0] = (P[0]^C[0]),
+           S[1] = (P[1]^C[1]),
+           S[2] = (P[2]^C[2]),
+           S[3] = (P[3]^C[3]);
+    
+    assign C4 = C[4]; 
+
+    
+endmodule
+
+```
