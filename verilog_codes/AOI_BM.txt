@@ -1,0 +1,11 @@
+```
+# AOI = And,Or,Inverter
+# func Y=~((A&&B)|(C&&D))
+module AOI(
+    input A,B,C,D,ctrl,
+    output Y
+    );
+    assign Y = ctrl?~((A&&B)|(C&&D)):1'bz;
+endmodule
+
+```

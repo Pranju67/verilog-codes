@@ -1,0 +1,11 @@
+```
+# Two_one_mux_BM
+module two_one_BM_MUX(
+    input S,
+    input [1:0]I,
+    output Y
+    );
+    assign Y = S?I[1]:I[0];
+endmodule
+
+```
