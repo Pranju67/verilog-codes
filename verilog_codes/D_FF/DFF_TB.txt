@@ -1,0 +1,38 @@
+```
+`timescale 1ns/1ps
+
+module DFF_tb;
+
+reg D;
+reg clk;
+wire q;
+
+DFF dut(
+    .D(D),
+    .clk(clk),
+    .q(q)
+);
+
+// Clock generation
+initial begin
+    clk = 0;
+    forever #5 clk = ~clk;
+end
+
+// Apply inputs
+initial begin
+    D = 0;
+    #10 D = 1;
+    #10 D = 0;
+    #10 D = 1;
+    #20 $stop;
+end
+
+// Monitor values
+initial begin
+    $monitor("Time=%0t clk=%b D=%b Q=%b", $time, clk, D, q);
+end
+
+endmodule
+
+```

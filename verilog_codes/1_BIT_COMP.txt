@@ -1,0 +1,29 @@
+```
+module FOUR_BITCOMP_PROCE(
+    input  [3:0] A,
+    input  [3:0] B,
+    output reg E,
+    output reg G,
+    output reg L
+);
+
+always @(A,B) begin
+    if (A > B) begin
+        E = 0;
+        G = 1;
+        L = 0;
+    end
+    else if (A < B) begin
+        E = 0;
+        G = 0;
+        L = 1;
+    end
+    else begin
+        E = 1;
+        G = 0;
+        L = 0;
+    end
+end
+
+endmodule
+```

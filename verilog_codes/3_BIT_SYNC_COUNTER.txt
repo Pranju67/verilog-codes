@@ -1,0 +1,70 @@
+```
+module Three_bit_sync_counter(
+    input clk,
+    input rst,
+    output [2:0] Q
+);
+
+wire [2:0] J, K;
+
+// JK input logic
+assign J[0] = 1'b1;
+assign K[0] = 1'b1;
+
+assign J[1] = Q[0];
+assign K[1] = Q[0];
+
+assign J[2] = Q[1] & Q[0];
+assign K[2] = Q[1] & Q[0];
+
+// Flip-Flops
+JK_FF FF0(
+    .J(J[0]),
+    .K(K[0]),
+    .clk(clk),
+    .rst(rst),
+    .Q(Q[0])
+);
+
+JK_FF FF1(
+    .J(J[1]),
+    .K(K[1]),
+    .clk(clk),
+    .rst(rst),
+    .Q(Q[1])
+);
+
+JK_FF FF2(
+    .J(J[2]),
+    .K(K[2]),
+    .clk(clk),
+    .rst(rst),
+    .Q(Q[2])
+);
+
+endmodule
+module JK_FF(
+    input J,
+    input K,
+    input clk,
+    input rst,
+    output reg Q
+);
+
+always @(posedge clk or posedge rst)
+begin
+    if (rst)
+        Q <= 1'b0;
+    else begin
+        case ({J,K})
+            2'b00: Q <= Q;      // Hold
+            2'b01: Q <= 1'b0;   // Reset
+            2'b10: Q <= 1'b1;   // Set
+            2'b11: Q <= ~Q;     // Toggle
+            default: Q <= Q;
+        endcase
+    end
+end
+
+endmodule
+```
